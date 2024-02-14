@@ -6,27 +6,33 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:17:16 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/13 17:03:39 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:17:36 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_usleep(unsigned int time)
+int	ft_usleep(unsigned int time_in_us)
 {
-	struct timeval	time_now;
-	unsigned long	now;
-	unsigned long	target;
+	long long	now;
+	long long	target;
 
-	if (gettimeofday(&time_now, NULL) == -1)
-		return (-1);
-	now = time_now.tv_sec * 1000000 + time_now.tv_usec;
-	target = now + time;
+	now = ft_get_time_us();
+	if (now == -1)
+		return (EXIT_FAILURE);
+	target = now + time_in_us;
 	while (now < target)
 	{
-		if (gettimeofday(&time_now, NULL) == -1)
-			return (-1);
-		now = time_now.tv_sec * 1000000 + time_now.tv_usec;
+		now = ft_get_time_us();
+		if (now == -1)
+			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
+}
+
+int	ft_msleep(unsigned int time_in_ms)
+{
+	if (ft_usleep(time_in_ms * 1000))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
