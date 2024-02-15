@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:57:30 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/14 17:13:44 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:27:35 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 int	ft_philo_init(t_philo *philo, int argc, char **argv)
 {
 	if (ft_argv_init(philo, argc, argv))
+		return (EXIT_FAILURE);
+	if (ft_start_philos(philo))
 		return (EXIT_FAILURE);
 	philo->start = ft_get_time_ms();
 	if (philo->start == -1)

@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/14 17:12:02 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:29:03 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,19 @@
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
-# define BLUE "\033[0;34m"
 # define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
-# define WHITE "\033[0;97m"
+# define WHITE "\033[1;97m"
 # define RESET "\033[0m"
+# define ORANGE "\033[38;5;208m"
 
-# define DEAD "\033[0;31m died 💀\033[0m"
-# define EAT "is\033[0;32m eating 🍝\033[0;32m"
-# define SLEEP "is\033[0;34m sleeping 😴\033[0;32m"
-# define THINK "is\033[0;36m thinking 🧠\033[0;32m"
-# define FORK "has\033[0;97m taken a fork 🍴\033[0;32m"
+# define DEAD "\033[1;31mdied 💀\033[0m"
+# define EAT "is\033[1;32m eating 🍝\033[0m"
+# define SLEEP "is\033[1;34m sleeping 😴\033[0m"
+# define THINK "is\033[1;36m thinking 🧠\033[0m"
+# define FORK "has\033[1;35m taken a fork 🍴\033[0m"
 
 typedef struct s_phi
 {
@@ -63,6 +65,9 @@ typedef struct s_philo
 //	converts a string to an int
 int					ft_atoi(const char *str);
 
+// calloc copy
+void				*ft_calloc(size_t len, size_t size);
+
 // sleep time in microseconds
 int					ft_usleep(unsigned int time_in_us);
 
@@ -80,5 +85,7 @@ int					ft_print_status(t_philo *philo, int phi, char *str);
 
 // ft_philo_init: checks the arguments and initializes the values in s_philo
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
+
+int					ft_start_philos(t_philo *philo);
 
 #endif
