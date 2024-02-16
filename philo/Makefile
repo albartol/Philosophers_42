@@ -6,7 +6,7 @@
 #    By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 14:52:30 by albartol          #+#    #+#              #
-#    Updated: 2024/02/15 16:04:33 by albartol         ###   ########.fr        #
+#    Updated: 2024/02/16 16:04:33 by albartol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRC=src/philo.c \
 	src/ft_philo_init.c \
 	src/ft_print_status.c \
 	src/ft_get_time.c \
-	src/ft_start_philos.c
+	src/ft_start_philos.c \
+	src/ft_start_pthreads.c \
+	src/ft_clean.c
 
 OBJ=$(SRC:%.c=%.o)
 

@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_status.c                                  :+:      :+:    :+:   */
+/*   ft_clean.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 17:35:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/16 15:11:23 by albartol         ###   ########.fr       */
+/*   Created: 2024/02/16 17:45:40 by albartol          #+#    #+#             */
+/*   Updated: 2024/02/16 18:21:23 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_print_status(t_philo *philo, int phi, char *str)
+void	ft_clean(t_philo *philo)
 {
-	long long	ms;
+	int	i;
 
-	ms = ft_get_time_ms();
-	if (ms == -1)
-		return (EXIT_FAILURE);
-	pthread_mutex_lock(&philo->write_lock);
-	ms -= philo->start;
-	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, phi, str);
-	pthread_mutex_unlock(&philo->write_lock);
-	return (EXIT_SUCCESS);
+	i = 0;
+	while (i < philo->num_phi)
+	{
+		pthread_mutex_destroy(&philo->philos[i].access_lock);
+		pthread_mutex_destroy(&philo->philos[i].fork);
+		i++;
+	}
+	pthread_mutex_destroy(&philo->access_lock);
+	pthread_mutex_destroy(&philo->write_lock);
+	if (philo->philos)
+		free(philo->philos);
 }

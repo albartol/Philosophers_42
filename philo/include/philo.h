@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/15 16:29:03 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:29:03 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,36 @@
 # define THINK "is\033[1;36m thinking 🧠\033[0m"
 # define FORK "has\033[1;35m taken a fork 🍴\033[0m"
 
-typedef struct s_phi
+typedef struct s_philo	t_philo;
+typedef struct s_phi	t_phi;
+
+struct s_phi
 {
-	pthread_t		phi;
+	pthread_t		thread;
 	int				id;
 	int				dead;
 	int				eating;
 	int				sleeping;
 	int				num_eaten;
 	long long		dies;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	access_lock;
 	pthread_mutex_t	fork;
-}					t_phi;
+	pthread_mutex_t	*next_fork;
+	t_philo			*philo;
+};
 
-typedef struct s_philo
+struct s_philo
 {
 	long long		start;
-	long long		now;
 	int				num_phi;
 	int				tt_die;
 	int				tt_eat;
 	int				tt_sleep;
 	int				num_to_eat;
+	pthread_mutex_t	access_lock;
+	pthread_mutex_t	write_lock;
 	t_phi			*philos;
-	pthread_mutex_t	lock;
-}					t_philo;
+};
 
 //	converts a string to an int
 int					ft_atoi(const char *str);
@@ -87,5 +92,9 @@ int					ft_print_status(t_philo *philo, int phi, char *str);
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
 
 int					ft_start_philos(t_philo *philo);
+
+int					ft_start_pthreads(t_philo *philo);
+
+void				ft_clean(t_philo *philo);
 
 #endif

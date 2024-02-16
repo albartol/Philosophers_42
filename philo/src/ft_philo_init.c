@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:57:30 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/15 16:27:35 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:27:35 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_check_values(t_philo *philo)
 		return (EXIT_FAILURE);
 	if (philo->tt_sleep < 1)
 		return (EXIT_FAILURE);
-	if (philo->num_to_eat < 0)
+	if (philo->num_to_eat < -1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -49,7 +49,7 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 	if (argc == 6)
 		philo->num_to_eat = ft_atoi(argv[5]);
 	else
-		philo->num_to_eat = 0;
+		philo->num_to_eat = -1;
 	if (ft_check_values(philo))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -59,10 +59,9 @@ int	ft_philo_init(t_philo *philo, int argc, char **argv)
 {
 	if (ft_argv_init(philo, argc, argv))
 		return (EXIT_FAILURE);
+	pthread_mutex_init(&philo->access_lock, NULL);
+	pthread_mutex_init(&philo->write_lock, NULL);
 	if (ft_start_philos(philo))
-		return (EXIT_FAILURE);
-	philo->start = ft_get_time_ms();
-	if (philo->start == -1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

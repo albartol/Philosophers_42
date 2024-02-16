@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 15:57:19 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/15 16:34:16 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:34:16 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ int	ft_start_philos(t_philo *philo)
 		philo->philos[i].eating = 0;
 		philo->philos[i].sleeping = 0;
 		philo->philos[i].num_eaten = 0;
-		pthread_mutex_init(&philo->philos[i].lock, NULL);
+		philo->philos[i].philo = philo;
+		pthread_mutex_init(&philo->philos[i].access_lock, NULL);
 		pthread_mutex_init(&philo->philos[i].fork, NULL);
 		i++;
 	}
+	philo->philos[0].next_fork = &philo->philos[philo->num_phi - 1].fork;
+	i = 0;
+	while (++i < philo->num_phi)
+		philo->philos[i].next_fork = &philo->philos[i - 1].fork;
 	return (EXIT_SUCCESS);
 }
 
