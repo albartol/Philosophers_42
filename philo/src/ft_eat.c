@@ -15,9 +15,11 @@
 static void	ft_take_forks(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->fork);
-	ft_print_status(phi->philo, phi->id, FORK);
+	if (phi->philo->num_dead == 0)
+		ft_print_status(phi->philo, phi->id, FORK);
 	pthread_mutex_lock(phi->left_fork);
-	ft_print_status(phi->philo, phi->id, FORK);
+	if (phi->philo->num_dead == 0)
+		ft_print_status(phi->philo, phi->id, FORK);
 }
 
 static void	ft_leave_forks(t_phi *phi)
@@ -32,14 +34,17 @@ static void	ft_leave_forks(t_phi *phi)
 
 void	ft_eat(t_phi *phi)
 {
-	ft_take_forks(phi);
+	if (phi->philo->num_dead == 0)
+		ft_take_forks(phi);
 	pthread_mutex_lock(&phi->access_lock);
 	phi->eating = 1;
-	phi->dies += phi->philo->tt_die + phi->philo->tt_eat;
+	// phi->dies += phi->philo->tt_die + phi->philo->tt_eat;
+	phi->dies += phi->philo->tt_die;
 	pthread_mutex_unlock(&phi->access_lock);
-	ft_print_status(phi->philo, phi->id, EAT);
-	ft_msleep(phi->philo->tt_eat);
+	if (phi->philo->num_dead == 0)
+	{
+		ft_print_status(phi->philo, phi->id, EAT);
+		ft_msleep(phi->philo->tt_eat);
+	}
 	ft_leave_forks(phi);
-	ft_print_status(phi->philo, phi->id, SLEEP);
-	ft_msleep(phi->philo->tt_sleep);
 }

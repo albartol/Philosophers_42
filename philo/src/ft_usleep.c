@@ -26,6 +26,7 @@ int	ft_usleep(unsigned int time_in_us)
 		now = ft_get_time_us();
 		if (now == -1)
 			return (EXIT_FAILURE);
+		usleep(time_in_us / 10);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -44,6 +45,7 @@ int	ft_msleep(unsigned int time_in_ms)
 		now = ft_get_time_ms();
 		if (now == -1)
 			return (EXIT_FAILURE);
+		usleep(time_in_ms);
 	}
 	return (EXIT_SUCCESS);
 }
