@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/16 16:29:03 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:30:10 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,15 @@ typedef struct s_phi	t_phi;
 
 struct s_phi
 {
-	pthread_t		thread;
+	pthread_t		thr;
+	pthread_t		check_thr;
 	int				id;
-	int				dead;
 	int				eating;
-	int				sleeping;
 	int				num_eaten;
 	long long		dies;
 	pthread_mutex_t	access_lock;
 	pthread_mutex_t	fork;
-	pthread_mutex_t	*next_fork;
+	pthread_mutex_t	*left_fork;
 	t_philo			*philo;
 };
 
@@ -62,10 +61,42 @@ struct s_philo
 	int				tt_eat;
 	int				tt_sleep;
 	int				num_to_eat;
+	int				num_eaten;
+	int				num_dead;
 	pthread_mutex_t	access_lock;
 	pthread_mutex_t	write_lock;
 	t_phi			*philos;
 };
+
+/*struct s_phi
+{
+	pthread_t		thread;
+	int				id;
+	int				dead;
+	int				eating;
+	int				num_eaten;
+	long long		dies;
+	pthread_mutex_t	access_lock;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	*left_fork;
+	t_philo			*philo;
+};
+
+struct s_philo
+{
+	long long		start;
+	int				num_phi;
+	int				tt_die;
+	int				tt_eat;
+	int				tt_sleep;
+	int				num_to_eat;
+	int				num_eaten;
+	int				num_dead;
+	pthread_mutex_t	access_lock;
+	pthread_mutex_t	write_lock;
+	pthread_mutex_t	*forks;
+	t_phi			*philos;
+};*/
 
 //	converts a string to an int
 int					ft_atoi(const char *str);
@@ -86,7 +117,8 @@ long long			ft_get_time_ms(void);
 long long			ft_get_time_us(void);
 
 // prints the status depending on the constant sent
-int					ft_print_status(t_philo *philo, int phi, char *str);
+//int					ft_print_status(t_philo *philo, int phi, char *str);
+void				ft_print_status(t_philo *philo, int phi, char *str);
 
 // ft_philo_init: checks the arguments and initializes the values in s_philo
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
@@ -96,5 +128,7 @@ int					ft_start_philos(t_philo *philo);
 int					ft_start_pthreads(t_philo *philo);
 
 void				ft_clean(t_philo *philo);
+
+void				ft_eat(t_phi *phi);
 
 #endif

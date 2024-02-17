@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:57:30 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/16 16:27:35 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:03:23 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_philo_init(t_philo *philo, int argc, char **argv)
 {
 	if (ft_argv_init(philo, argc, argv))
 		return (EXIT_FAILURE);
+	philo->num_eaten = 0;
+	philo->num_dead = 0;
 	pthread_mutex_init(&philo->access_lock, NULL);
 	pthread_mutex_init(&philo->write_lock, NULL);
 	if (ft_start_philos(philo))
