@@ -39,7 +39,7 @@ void	ft_eat(t_phi *phi)
 	pthread_mutex_lock(&phi->access_lock);
 	phi->eating = 1;
 	// phi->dies += phi->philo->tt_die + phi->philo->tt_eat;
-	phi->dies += phi->philo->tt_die;
+	phi->dies = phi->philo->tt_die + ft_get_time_ms();
 	pthread_mutex_unlock(&phi->access_lock);
 	if (phi->philo->num_dead == 0)
 	{

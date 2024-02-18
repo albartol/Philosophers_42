@@ -19,24 +19,27 @@ static void	*checker(void *arg)
 	phi = (t_phi *)arg;
 	while (phi->philo->num_dead == 0)
 	{
-		pthread_mutex_lock(&phi->access_lock);
-		if (ft_get_time_ms() >= phi->dies && phi->eating == 0)
+		// pthread_mutex_lock(&phi->access_lock);
+		// if (ft_get_time_ms() >= phi->dies && phi->eating == 0)
+		if (phi->dies <= ft_get_time_ms() && phi->eating == 0)
 		{
 			pthread_mutex_lock(&phi->philo->access_lock);
 			phi->philo->num_dead++;
 			pthread_mutex_unlock(&phi->philo->access_lock);
 			ft_print_status(phi->philo, phi->id, DEAD);
 		}
-		if (phi->num_eaten == phi->philo->num_to_eat)
+		if (phi->philo->num_to_eat == phi->num_eaten)
 		{
 			pthread_mutex_lock(&phi->philo->access_lock);
 			phi->philo->num_eaten++;
 			if (phi->philo->num_eaten >= phi->philo->num_phi)
 				phi->philo->num_dead++;
 			pthread_mutex_unlock(&phi->philo->access_lock);
+			pthread_mutex_lock(&phi->access_lock);
 			phi->num_eaten++;
+			pthread_mutex_unlock(&phi->access_lock);
 		}
-		pthread_mutex_unlock(&phi->access_lock);
+		// pthread_mutex_unlock(&phi->access_lock);
 	}
 	return (0);
 }
@@ -49,6 +52,11 @@ static void	*start(void *arg)
 	phi->dies = phi->philo->tt_die + phi->philo->start;
 	// phi->dies = phi->philo->tt_die + ft_get_time_ms();
 	pthread_create(&phi->check_thr, NULL, &checker, arg);
+	if (phi->id % 2 == 0)
+	{
+		ft_print_status(phi->philo, phi->id, THINK);
+		ft_usleep(500);
+	}
 	while (phi->philo->num_dead == 0)
 	{
 		if (phi->philo->num_dead == 0)
