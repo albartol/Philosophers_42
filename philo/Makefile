@@ -16,12 +16,11 @@ CFLAGS:=-Wall -Wextra -Werror
 
 SRC=src/philo.c \
 	src/ft_atoi.c \
-	src/ft_usleep.c \
 	src/ft_calloc.c \
+	src/ft_usleep.c \
+	src/ft_get_time.c \
 	src/ft_philo_init.c \
 	src/ft_print_status.c \
-	src/ft_get_time.c \
-	src/ft_start_philos.c \
 	src/ft_start_pthreads.c \
 	src/ft_clean.c \
 	src/ft_eat.c

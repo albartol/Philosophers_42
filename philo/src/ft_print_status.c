@@ -12,14 +12,14 @@
 
 #include "../include/philo.h"
 
-void	ft_print_status(t_philo *philo, int phi, char *str)
+void	ft_print_status(t_philo *philo, int phi_id, char *str)
 {
 	long long	ms;
 
-	pthread_mutex_lock(&philo->write_lock);
+	pthread_mutex_lock(&philo->print_lock);
 	ms = ft_get_time_ms() - philo->start;
-	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, phi, str);
-	pthread_mutex_unlock(&philo->write_lock);
+	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, phi_id, str);
+	pthread_mutex_unlock(&philo->print_lock);
 }
 
 /* int	ft_print_status(t_philo *philo, int phi, char *str)
@@ -29,9 +29,9 @@ void	ft_print_status(t_philo *philo, int phi, char *str)
 	ms = ft_get_time_ms();
 	if (ms == -1)
 		return (EXIT_FAILURE);
-	pthread_mutex_lock(&philo->write_lock);
+	pthread_mutex_lock(&philo->print_lock);
 	ms -= philo->start;
 	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, phi, str);
-	pthread_mutex_unlock(&philo->write_lock);
+	pthread_mutex_unlock(&philo->print_lock);
 	return (EXIT_SUCCESS);
 } */

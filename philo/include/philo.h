@@ -47,7 +47,7 @@ struct s_phi
 	int				eating;
 	int				num_eaten;
 	long long		dies;
-	pthread_mutex_t	access_lock;
+	pthread_mutex_t	mem_lock;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*left_fork;
 	t_philo			*philo;
@@ -62,73 +62,44 @@ struct s_philo
 	int				tt_sleep;
 	int				num_to_eat;
 	int				num_eaten;
-	int				num_dead;
-	pthread_mutex_t	access_lock;
-	pthread_mutex_t	write_lock;
+	volatile int	num_dead;
+	pthread_mutex_t	mem_lock;
+	pthread_mutex_t	print_lock;
 	t_phi			*philos;
 };
-
-/*struct s_phi
-{
-	pthread_t		thread;
-	int				id;
-	int				dead;
-	int				eating;
-	int				num_eaten;
-	long long		dies;
-	pthread_mutex_t	access_lock;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	*left_fork;
-	t_philo			*philo;
-};
-
-struct s_philo
-{
-	long long		start;
-	int				num_phi;
-	int				tt_die;
-	int				tt_eat;
-	int				tt_sleep;
-	int				num_to_eat;
-	int				num_eaten;
-	int				num_dead;
-	pthread_mutex_t	access_lock;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	*forks;
-	t_phi			*philos;
-};*/
 
 //	converts a string to an int
 int					ft_atoi(const char *str);
 
-// calloc copy
+//	allocs memory and sets the bytes to 0
 void				*ft_calloc(size_t len, size_t size);
 
-// sleep time in microseconds
+//	sleep time in microseconds
 int					ft_usleep(unsigned int time_in_us);
 
 //	sleep time in milliseconds
 int					ft_msleep(unsigned int time_in_ms);
 
-// gets time in milliseconds
+//	gets time in milliseconds
 long long			ft_get_time_ms(void);
 
-// gets time in microseconds
+//	gets time in microseconds
 long long			ft_get_time_us(void);
 
-// prints the status depending on the constant sent
+//	prints the status depending on the phi_id and string sent
+void				ft_print_status(t_philo *philo, int phi_id, char *str);
 //int					ft_print_status(t_philo *philo, int phi, char *str);
-void				ft_print_status(t_philo *philo, int phi, char *str);
 
-// ft_philo_init: checks the arguments and initializes the values in s_philo
+//	checks the arguments and initializes the values in t_philo
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
 
-int					ft_start_philos(t_philo *philo);
-
+//	creates the threads and starts the execution of the philosophers
 int					ft_start_pthreads(t_philo *philo);
 
-void				ft_clean(t_philo *philo);
-
+//	the eating action for a philosopher from taking the fork to droping it
 void				ft_eat(t_phi *phi);
+
+//	destroys the mutexes and frees the philosophers array
+void				ft_clean(t_philo *philo);
 
 #endif

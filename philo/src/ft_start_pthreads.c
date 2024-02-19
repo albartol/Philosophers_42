@@ -19,27 +19,27 @@ static void	*checker(void *arg)
 	phi = (t_phi *)arg;
 	while (phi->philo->num_dead == 0)
 	{
-		// pthread_mutex_lock(&phi->access_lock);
+		pthread_mutex_lock(&phi->mem_lock);
 		// if (ft_get_time_ms() >= phi->dies && phi->eating == 0)
 		if (phi->dies <= ft_get_time_ms() && phi->eating == 0)
 		{
-			pthread_mutex_lock(&phi->philo->access_lock);
+			pthread_mutex_lock(&phi->philo->mem_lock);
 			phi->philo->num_dead++;
-			pthread_mutex_unlock(&phi->philo->access_lock);
+			pthread_mutex_unlock(&phi->philo->mem_lock);
 			ft_print_status(phi->philo, phi->id, DEAD);
 		}
-		if (phi->philo->num_to_eat == phi->num_eaten)
+		if (phi->num_eaten == phi->philo->num_to_eat)
 		{
-			pthread_mutex_lock(&phi->philo->access_lock);
+			pthread_mutex_lock(&phi->philo->mem_lock);
 			phi->philo->num_eaten++;
 			if (phi->philo->num_eaten >= phi->philo->num_phi)
 				phi->philo->num_dead++;
-			pthread_mutex_unlock(&phi->philo->access_lock);
-			pthread_mutex_lock(&phi->access_lock);
+			pthread_mutex_unlock(&phi->philo->mem_lock);
+			// pthread_mutex_lock(&phi->mem_lock);
 			phi->num_eaten++;
-			pthread_mutex_unlock(&phi->access_lock);
+			// pthread_mutex_unlock(&phi->mem_lock);
 		}
-		// pthread_mutex_unlock(&phi->access_lock);
+		pthread_mutex_unlock(&phi->mem_lock);
 	}
 	return (0);
 }
@@ -51,7 +51,13 @@ static void	*start(void *arg)
 	phi = (t_phi *)arg;
 	phi->dies = phi->philo->tt_die + phi->philo->start;
 	// phi->dies = phi->philo->tt_die + ft_get_time_ms();
-	pthread_create(&phi->check_thr, NULL, &checker, arg);
+	if (pthread_create(&phi->check_thr, NULL, &checker, arg))
+	{
+		pthread_mutex_lock(&phi->philo->mem_lock);
+		phi->philo->num_dead++;
+		pthread_mutex_unlock(&phi->philo->mem_lock);
+		return (0);
+	}
 	if (phi->id % 2 == 0)
 	{
 		ft_print_status(phi->philo, phi->id, THINK);
@@ -63,11 +69,11 @@ static void	*start(void *arg)
 			ft_eat(phi);
 		/* if (phi->num_eaten == phi->philo->num_to_eat)
 		{
-			pthread_mutex_lock(&phi->philo->access_lock);
+			pthread_mutex_lock(&phi->philo->mem_lock);
 			phi->philo->num_eaten++;
 			if (phi->philo->num_eaten >= phi->philo->num_phi)
 				phi->philo->num_dead++;
-			pthread_mutex_unlock(&phi->philo->access_lock);
+			pthread_mutex_unlock(&phi->philo->mem_lock);
 			phi->num_eaten++;
 		} */
 		if (phi->philo->num_dead == 0)
@@ -91,9 +97,9 @@ static void	*start(void *arg)
 	{
 		if (philo->num_eaten >= philo->num_phi)
 		{
-			pthread_mutex_lock(&philo->access_lock);
+			pthread_mutex_lock(&philo->mem_lock);
 			philo->num_dead++;
-			pthread_mutex_unlock(&philo->access_lock);
+			pthread_mutex_unlock(&philo->mem_lock);
 		}
 	}
 	return (0);
@@ -112,20 +118,37 @@ int	ft_start_pthreads(t_philo *philo)
 	// 	pthread_create(&thread, NULL, &eat_count, philo);
 	while (i < philo->num_phi)
 	{
-		pthread_create(&philo->philos[i].thr, NULL, &start, &philo->philos[i]);
+		if (pthread_create(&philo->philos[i].thr, NULL, &start, &philo->philos[i]))
+		{
+			while (--i)
+			{
+				pthread_detach(philo->philos[i].check_thr);
+				pthread_detach(philo->philos[i].thr);
+			}
+			ft_clean(philo);
+			return (EXIT_FAILURE);
+		}
 		i++;
 		ft_usleep(1);
 	}
 	if (philo->num_phi == 1)
 	{
 		ft_msleep(philo->tt_die + 2);
-		pthread_detach(philo->philos[0].thr);
+		if (pthread_detach(philo->philos[0].thr))
+		{
+			ft_clean(philo);
+			return (EXIT_FAILURE);
+		}
 		return (EXIT_SUCCESS);
 	}
 	i = 0;
 	while (i < philo->num_phi)
 	{
-		pthread_join(philo->philos[i].thr, NULL);
+		if (pthread_join(philo->philos[i].thr, NULL))
+		{
+			ft_clean(philo);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);

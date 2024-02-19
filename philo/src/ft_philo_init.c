@@ -55,15 +55,51 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
+static int	ft_start_philos(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	philo->philos = (t_phi *)ft_calloc(philo->num_phi, sizeof(t_phi));
+	if (!philo->philos)
+		return (EXIT_FAILURE);
+	while (i < philo->num_phi)
+	{
+		philo->philos[i].id = i + 1;
+		philo->philos[i].eating = 0;
+		philo->philos[i].num_eaten = 0;
+		philo->philos[i].philo = philo;
+		if (pthread_mutex_init(&philo->philos[i].mem_lock, NULL))
+			return (EXIT_FAILURE);
+		if (pthread_mutex_init(&philo->philos[i].fork, NULL))
+			return (EXIT_FAILURE);
+		i++;
+	}
+	philo->philos[0].left_fork = &philo->philos[philo->num_phi - 1].fork;
+	i = 0;
+	while (++i < philo->num_phi)
+		philo->philos[i].left_fork = &philo->philos[i - 1].fork;
+	return (EXIT_SUCCESS);
+}
+
 int	ft_philo_init(t_philo *philo, int argc, char **argv)
 {
 	if (ft_argv_init(philo, argc, argv))
 		return (EXIT_FAILURE);
 	philo->num_eaten = 0;
 	philo->num_dead = 0;
-	pthread_mutex_init(&philo->access_lock, NULL);
-	pthread_mutex_init(&philo->write_lock, NULL);
-	if (ft_start_philos(philo))
+	philo->philos = 0;
+	if (pthread_mutex_init(&philo->mem_lock, NULL))
 		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&philo->print_lock, NULL))
+	{
+		pthread_mutex_destroy(&philo->mem_lock);
+		return (EXIT_FAILURE);
+	}
+	if (ft_start_philos(philo))
+	{
+		ft_clean(philo);
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
