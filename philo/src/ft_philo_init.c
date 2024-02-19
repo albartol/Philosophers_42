@@ -14,20 +14,16 @@
 
 static int	ft_check_values(t_philo *philo)
 {
-	if (philo->num_phi < 1)
+	if (philo->num_phi == 0 || philo->tt_die == 0)
 		return (EXIT_FAILURE);
-	if (philo->tt_die < 1)
+	if (philo->tt_sleep == 0 || philo->tt_eat == 0)
 		return (EXIT_FAILURE);
-	if (philo->tt_eat < 1)
-		return (EXIT_FAILURE);
-	if (philo->tt_sleep < 1)
-		return (EXIT_FAILURE);
-	if (philo->num_to_eat < -1)
+	if (philo->num_to_eat == 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_argv_init(t_philo *philo, int argc, char **argv)
+static int	ft_check_argv(int argc, char **argv)
 {
 	int	i;
 	int	n;
@@ -37,11 +33,22 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 	{
 		n = 0;
 		while (argv[i][n])
+		{
+			if (argv[i][n] < 48 || argv[i][n] > 57)
+				return (ft_error("Arguments can only be positive numbers\n"));
 			n++;
+		}
 		if (n > 9)
-			return (EXIT_FAILURE);
+			return (ft_error("Arguments can't be longer than 9 numbers\n"));
 		i++;
 	}
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_argv_init(t_philo *philo, int argc, char **argv)
+{
+	if (ft_check_argv(argc, argv))
+		return (EXIT_FAILURE);
 	philo->num_phi = ft_atoi(argv[1]);
 	philo->tt_die = ft_atoi(argv[2]);
 	philo->tt_eat = ft_atoi(argv[3]);
@@ -51,7 +58,7 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 	else
 		philo->num_to_eat = -1;
 	if (ft_check_values(philo))
-		return (EXIT_FAILURE);
+		return (ft_error("Arguments can't be 0\n"));
 	return (EXIT_SUCCESS);
 }
 
@@ -62,7 +69,7 @@ static int	ft_start_philos(t_philo *philo)
 	i = 0;
 	philo->philos = (t_phi *)ft_calloc(philo->num_phi, sizeof(t_phi));
 	if (!philo->philos)
-		return (EXIT_FAILURE);
+		return (ft_error("Failed to alloc memory in ft_start_philos\n"));
 	while (i < philo->num_phi)
 	{
 		philo->philos[i].id = i + 1;
@@ -70,9 +77,9 @@ static int	ft_start_philos(t_philo *philo)
 		philo->philos[i].num_eaten = 0;
 		philo->philos[i].philo = philo;
 		if (pthread_mutex_init(&philo->philos[i].mem_lock, NULL))
-			return (EXIT_FAILURE);
+			return (ft_error("Failed to init mutex\n"));
 		if (pthread_mutex_init(&philo->philos[i].fork, NULL))
-			return (EXIT_FAILURE);
+			return (ft_error("Failed to init mutex\n"));
 		i++;
 	}
 	philo->philos[0].left_fork = &philo->philos[philo->num_phi - 1].fork;
@@ -90,11 +97,11 @@ int	ft_philo_init(t_philo *philo, int argc, char **argv)
 	philo->num_dead = 0;
 	philo->philos = 0;
 	if (pthread_mutex_init(&philo->mem_lock, NULL))
-		return (EXIT_FAILURE);
+		return (ft_error("Failed to init mutex\n"));
 	if (pthread_mutex_init(&philo->print_lock, NULL))
 	{
 		pthread_mutex_destroy(&philo->mem_lock);
-		return (EXIT_FAILURE);
+		return (ft_error("Failed to init mutex\n"));
 	}
 	if (ft_start_philos(philo))
 	{

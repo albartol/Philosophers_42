@@ -71,6 +71,9 @@ struct s_philo
 //	converts a string to an int
 int					ft_atoi(const char *str);
 
+//	prints a string to STDERR and returns the number of bytes printed or -1
+int					ft_error(char *str);
+
 //	allocs memory and sets the bytes to 0
 void				*ft_calloc(size_t len, size_t size);
 
@@ -94,10 +97,13 @@ void				ft_print_status(t_philo *philo, int phi_id, char *str);
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
 
 //	creates the threads and starts the execution of the philosophers
-int					ft_start_pthreads(t_philo *philo);
+int					ft_start_pthreads(t_philo *ph);
 
 //	the eating action for a philosopher from taking the fork to droping it
 void				ft_eat(t_phi *phi);
+
+//	the resting action for a philosopher to do after eating: sleaping & tinking
+void				ft_rest(t_phi *phi);
 
 //	destroys the mutexes and frees the philosophers array
 void				ft_clean(t_philo *philo);

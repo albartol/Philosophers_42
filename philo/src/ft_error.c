@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clean.c                                         :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 17:45:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/17 16:25:38 by albartol         ###   ########.fr       */
+/*   Created: 2024/02/19 13:17:16 by albartol          #+#    #+#             */
+/*   Updated: 2024/02/19 15:39:20 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	ft_clean(t_philo *philo)
+int	ft_error(char *str)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&philo->mem_lock);
-	pthread_mutex_destroy(&philo->print_lock);
-	if (philo->philos)
-	{
-		while (i < philo->num_phi)
-		{
-			pthread_mutex_destroy(&philo->philos[i].mem_lock);
-			pthread_mutex_destroy(&philo->philos[i].fork);
-			i++;
-		}
-		free(philo->philos);
-	}
+	while (str[i])
+		i++;
+	return (write(STDERR_FILENO, str, i));
 }

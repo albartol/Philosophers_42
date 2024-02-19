@@ -23,7 +23,9 @@ SRC=src/philo.c \
 	src/ft_print_status.c \
 	src/ft_start_pthreads.c \
 	src/ft_clean.c \
-	src/ft_eat.c
+	src/ft_eat.c \
+	src/ft_rest.c \
+	src/ft_error.c
 
 OBJ=$(SRC:%.c=%.o)
 
