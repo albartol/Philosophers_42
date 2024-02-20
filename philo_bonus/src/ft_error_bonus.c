@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_time.c                                      :+:      :+:    :+:   */
+/*   ft_error_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/14 16:57:46 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/14 17:11:33 by albartol         ###   ########.fr       */
+/*   Created: 2024/02/19 13:17:16 by albartol          #+#    #+#             */
+/*   Updated: 2024/02/19 15:39:20 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/philo_bonus.h"
 
-long long	ft_get_time_us(void)
+int	ft_error(char *str)
 {
-	struct timeval	time;
+	unsigned int	i;
 
-	if (gettimeofday(&time, NULL) == -1)
-		return (-1);
-	return (time.tv_sec * 1000000 + time.tv_usec);
-}
-
-long long	ft_get_time_ms(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		return (-1);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	i = 0;
+	while (str[i])
+		i++;
+	return (write(STDERR_FILENO, str, i));
 }

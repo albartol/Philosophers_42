@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rest.c                                          :+:      :+:    :+:   */
+/*   ft_calloc_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 15:41:15 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/19 16:00:18 by albartol         ###   ########.fr       */
+/*   Created: 2024/02/15 16:01:12 by albartol          #+#    #+#             */
+/*   Updated: 2024/02/15 16:02:41 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/philo_bonus.h"
 
-void	ft_rest(t_philo *philo)
+void	*ft_calloc(size_t len, size_t size)
 {
-	if (philo->dead == 0)
-	{
-		ft_print_status(philo, SLEEP);
-		ft_msleep(philo->tt_sleep);
-	}
-	if (philo->dead == 0)
-		ft_print_status(philo, THINK);
+	void	*array;
+
+	array = (void *)malloc(len * size);
+	if (!array)
+		return (NULL);
+	memset(array, 0, len * size);
+	return (array);
 }

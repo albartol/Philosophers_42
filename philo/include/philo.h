@@ -13,13 +13,21 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+//	for ptread_create, ptread_detach, ptread_join
+//	mutext_init, mutex_destroy, mutex_lock & mutex_unlock
 # include <pthread.h>
+// for printf
 # include <stdio.h>
+// for malloc, free, exit & macros
 # include <stdlib.h>
+// for memset
 # include <string.h>
-# include <sys/time.h>
+// for write & usleep
 # include <unistd.h>
+// for gettimeofday
+# include <sys/time.h>
 
+//	colors for printing text in the terminal
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
@@ -30,6 +38,7 @@
 # define RESET "\033[0m"
 # define ORANGE "\033[38;5;208m"
 
+//	messages for the status of a philosopher
 # define DEAD "\033[1;31mdied 💀\033[0m"
 # define EAT "is\033[1;32m eating 🍝\033[0m"
 # define SLEEP "is\033[1;34m sleeping 😴\033[0m"

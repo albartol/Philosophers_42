@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start_forks.c                                   :+:      :+:    :+:   */
+/*   ft_start_forks_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/philo_bonus.h"
 
 static void	*checker(void *arg)
 {
@@ -73,22 +73,25 @@ int	ft_start_forks(t_philo *philo)
 	id = 1;
 	while (i < philo->num_phi)
 	{
-			if (id == 0 || id == -1)
-					break ;
-			if (id != 0)
-					id = fork();
-			i++;
+		if (id == 0 || id == -1)
+			break ;
+		if (id != 0)
+			id = fork();
+		i++;
 	}
 	if (id == 0)
 	{
 		philo->id = i;
 		start(philo);
+		exit(0);
 	}
 	if (id == -1)
 	{
-		while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD);
+		while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD)
+		{}
 		return (ft_error("Error in fork\n"));
 	}
-	while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD);
+	while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD)
+	{}
 	return (EXIT_SUCCESS);
 }

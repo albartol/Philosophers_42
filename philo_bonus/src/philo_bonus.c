@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/philo_bonus.h"
 
 int	main(int argc, char **argv)
 {
@@ -26,11 +26,18 @@ int	main(int argc, char **argv)
 		free(philo);
 		return (EXIT_FAILURE);
 	}
+	if (ft_create_sem(philo))
+	{
+		free(philo);
+		return (EXIT_FAILURE);
+	}
 	if (ft_start_forks(philo))
 	{
+		ft_unlink_sem(philo, 4);
 		free(philo);
 		return (ft_error("Error in ft_start_forks\n"));
 	}
+	ft_unlink_sem(philo, 4);
 	free(philo);
 	return (EXIT_SUCCESS);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 //	for ptread_create, ptread_detach & ptread_join
 # include <pthread.h>
@@ -40,6 +40,7 @@
 // for kill
 # include <signal.h>
 
+//	colors for printing text in the terminal
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define YELLOW "\033[0;33m"
@@ -50,11 +51,21 @@
 # define RESET "\033[0m"
 # define ORANGE "\033[38;5;208m"
 
+//	messages for the status of a philosopher
 # define DEAD "\033[1;31mdied 💀\033[0m"
 # define EAT "is\033[1;32m eating 🍝\033[0m"
 # define SLEEP "is\033[1;34m sleeping 😴\033[0m"
 # define THINK "is\033[1;36m thinking 🧠\033[0m"
 # define FORK "has\033[1;35m taken a fork 🍴\033[0m"
+
+//	name of the semaphores
+# define SEM_FORK "/forks"
+# define SEM_DEAD "/deaths"
+# define SEM_EAT "/num_eaten"
+# define SEM_PRINT "/printf"
+
+//	permissions for the semaphores
+# define SEM_PER 0644
 
 typedef struct s_philo
 {
@@ -64,10 +75,14 @@ typedef struct s_philo
 	int				tt_eat;
 	int				tt_sleep;
 	int				num_to_eat;
-	int				num_eaten;
 	pthread_t		check_thr;
+	sem_t			*sem_forks;
+	sem_t			*sem_deaths;
+	sem_t			*sem_num_eat;
+	sem_t			*sem_printf;
 	int				id;
 	int				eating;
+	int				num_eaten;
 	int				dead;
 	long long		dies;
 }					t_philo;
@@ -108,5 +123,17 @@ void				ft_eat(t_philo *philo);
 
 //	the resting action for a philosopher to do after eating: sleaping & tinking
 void				ft_rest(t_philo *philo);
+
+//	creates, opens and closes the semaphores in the main process
+int					ft_create_sem(t_philo *philo);
+
+//	unlink the semaphores depending on <num_to_unlink>(1-3) in the main process
+int					ft_unlink_sem(t_philo *philo, int num_to_unlink);
+
+//	closes the semaphores depending on <num_to_close>(1-3)
+int					ft_close_sem(t_philo *philo, int num_to_close);
+
+//	opens the semaphores
+int					ft_open_sem(t_philo *philo);
 
 #endif

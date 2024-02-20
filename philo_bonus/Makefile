@@ -14,17 +14,21 @@ CC:=gcc
 
 CFLAGS:=-Wall -Wextra -Werror
 
-SRC=src/philo.c \
-	src/ft_atoi.c \
-	src/ft_calloc.c \
-	src/ft_usleep.c \
-	src/ft_get_time.c \
-	src/ft_philo_init.c \
-	src/ft_print_status.c \
-	src/ft_start_forks.c \
-	src/ft_eat.c \
-	src/ft_rest.c \
-	src/ft_error.c
+SRC=src/philo_bonus.c \
+	src/ft_atoi_bonus.c \
+	src/ft_calloc_bonus.c \
+	src/ft_usleep_bonus.c \
+	src/ft_get_time_bonus.c \
+	src/ft_philo_init_bonus.c \
+	src/ft_print_status_bonus.c \
+	src/ft_start_forks_bonus.c \
+	src/ft_eat_bonus.c \
+	src/ft_rest_bonus.c \
+	src/ft_error_bonus.c \
+	src/ft_create_sem_bonus.c \
+	src/ft_unlink_sem_bonus.c \
+	src/ft_open_sem_bonus.c \
+	src/ft_close_sem_bonus.c
 
 OBJ=$(SRC:%.c=%.o)
 
@@ -32,10 +36,10 @@ NAME=philo_bonus
 
 all: $(NAME)
 
-$(NAME): include/philo.h $(OBJ)
+$(NAME): include/philo_bonus.h $(OBJ)
 	$(CC) $(CFLAGS) -O3 $(OBJ) -o $@
 
-%.o: %.c include/philo.h 
+%.o: %.c include/philo_bonus.h 
 	$(CC) $(CFLAGS) -O3 -c $< -o $@
 
 clean:

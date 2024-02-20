@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_rest_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 13:17:16 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/19 15:39:20 by albartol         ###   ########.fr       */
+/*   Created: 2024/02/19 15:41:15 by albartol          #+#    #+#             */
+/*   Updated: 2024/02/19 16:00:18 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/philo_bonus.h"
 
-int	ft_error(char *str)
+void	ft_rest(t_philo *philo)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (write(STDERR_FILENO, str, i));
+	if (philo->dead == 0)
+	{
+		ft_print_status(philo, SLEEP);
+		ft_msleep(philo->tt_sleep);
+	}
+	if (philo->dead == 0)
+		ft_print_status(philo, THINK);
 }
