@@ -63,6 +63,7 @@
 # define SEM_DEAD "/deaths"
 # define SEM_EAT "/num_eaten"
 # define SEM_PRINT "/printf"
+# define SEM_PAIR "/fork_pairs"
 
 //	permissions for the semaphores
 # define SEM_PER 0644
@@ -76,10 +77,12 @@ typedef struct s_philo
 	int				tt_sleep;
 	int				num_to_eat;
 	pthread_t		check_thr;
+	pthread_t		check_deaths;
 	sem_t			*sem_forks;
+	sem_t			*sem_pairs;
 	sem_t			*sem_deaths;
-	sem_t			*sem_num_eat;
 	sem_t			*sem_printf;
+	sem_t			*sem_num_eat;
 	int				id;
 	int				eating;
 	int				num_eaten;
@@ -124,16 +127,19 @@ void				ft_eat(t_philo *philo);
 //	the resting action for a philosopher to do after eating: sleaping & tinking
 void				ft_rest(t_philo *philo);
 
-//	creates, opens and closes the semaphores in the main process
+//	OLD: creates, opens and closes the semaphores in the main process
+//	NEW: creates and opens the semaphores in the main process
 int					ft_create_sem(t_philo *philo);
 
-//	unlink the semaphores depending on <num_to_unlink>(1-3) in the main process
-int					ft_unlink_sem(t_philo *philo, int num_to_unlink);
+//	unlinks the semaphores depending on <num_to_unlink>(1-5) in the main process
+// void				ft_unlink_sem(t_philo *philo, int num_to_unlink);
+//	unlinks the semaphores
+void				ft_unlink_sem(void);
 
-//	closes the semaphores depending on <num_to_close>(1-3)
-int					ft_close_sem(t_philo *philo, int num_to_close);
+//	closes the semaphores depending on <num_to_close>(1-5)
+void				ft_close_sem(t_philo *philo, int num_to_close);
 
-//	opens the semaphores
-int					ft_open_sem(t_philo *philo);
+//	routine of the thread checking in the philosopher(process) has died
+void				*ft_thread_checker(void *arg);
 
 #endif

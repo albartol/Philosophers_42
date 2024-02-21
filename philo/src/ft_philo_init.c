@@ -12,17 +12,6 @@
 
 #include "../include/philo.h"
 
-static int	ft_check_values(t_philo *philo)
-{
-	if (philo->num_phi == 0 || philo->tt_die == 0)
-		return (EXIT_FAILURE);
-	if (philo->tt_sleep == 0 || philo->tt_eat == 0)
-		return (EXIT_FAILURE);
-	if (philo->num_to_eat == 0)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
 static int	ft_check_argv(int argc, char **argv)
 {
 	int	i;
@@ -57,7 +46,8 @@ static int	ft_argv_init(t_philo *philo, int argc, char **argv)
 		philo->num_to_eat = ft_atoi(argv[5]);
 	else
 		philo->num_to_eat = -1;
-	if (ft_check_values(philo))
+	if (philo->num_phi == 0 || philo->tt_die == 0 || philo->tt_eat == 0
+		|| philo->tt_sleep == 0 || philo->num_to_eat == 0)
 		return (ft_error("Arguments can't be 0\n"));
 	return (EXIT_SUCCESS);
 }

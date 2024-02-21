@@ -16,8 +16,10 @@ void	ft_print_status(t_philo *philo, char *str)
 {
 	long long	ms;
 
+	sem_wait(philo->sem_printf);
 	ms = ft_get_time_ms() - philo->start;
 	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, philo->id, str);
+	sem_post(philo->sem_printf);
 }
 
 /* int	ft_print_status(t_philo *philo, int phi, char *str)

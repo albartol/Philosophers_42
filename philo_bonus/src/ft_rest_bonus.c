@@ -15,10 +15,9 @@
 void	ft_rest(t_philo *philo)
 {
 	if (philo->dead == 0)
-	{
 		ft_print_status(philo, SLEEP);
+	if (philo->dead == 0)
 		ft_msleep(philo->tt_sleep);
-	}
 	if (philo->dead == 0)
 		ft_print_status(philo, THINK);
 }

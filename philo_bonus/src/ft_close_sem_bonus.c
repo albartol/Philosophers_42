@@ -12,10 +12,22 @@
 
 #include "../include/philo_bonus.h"
 
-int	ft_close_sem(t_philo *philo, int num_to_close)
+void	ft_close_sem(t_philo *philo, int num_to_close)
 {
-	if (num_to_close < 1 && num_to_close > 4)
-		return (EXIT_SUCCESS);
+	if (num_to_close >= 1)
+		sem_close(philo->sem_forks);
+	if (num_to_close >= 2)
+		sem_close(philo->sem_deaths);
+	if (num_to_close >= 3)
+		sem_close(philo->sem_printf);
+	if (num_to_close >= 4)
+		sem_close(philo->sem_pairs);
+	if (num_to_close >= 5)
+		sem_close(philo->sem_num_eat);
+}
+
+/* void	ft_close_sem(t_philo *philo, int num_to_close)
+{
 	if (num_to_close >= 1)
 	{
 		if (sem_close(philo->sem_forks) == -1)
@@ -31,12 +43,15 @@ int	ft_close_sem(t_philo *philo, int num_to_close)
 		if (sem_close(philo->sem_printf) == -1)
 			ft_error("Error sem_close(SEM_PRINT)\n");
 	}
-	if (philo->num_to_eat == -1)
-		return (EXIT_SUCCESS);
-	if (num_to_close == 4)
+	if (num_to_close >= 4)
+	{
+		if (sem_close(philo->sem_pairs) == -1)
+			ft_error("Error sem_close(SEM_PAIR)\n");
+	}
+	if (philo->num_to_eat > 0 && num_to_close >= 5)
 	{
 		if (sem_close(philo->sem_num_eat) == -1)
 			ft_error("Error sem_close(SEM_EAT)\n");
 	}
-	return (EXIT_SUCCESS);
 }
+ */

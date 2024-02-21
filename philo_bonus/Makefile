@@ -12,7 +12,7 @@
 
 CC:=gcc
 
-CFLAGS:=-Wall -Wextra -Werror
+CFLAGS:=-Wall -Wextra -Werror -pthread
 
 SRC=src/philo_bonus.c \
 	src/ft_atoi_bonus.c \
@@ -27,8 +27,8 @@ SRC=src/philo_bonus.c \
 	src/ft_error_bonus.c \
 	src/ft_create_sem_bonus.c \
 	src/ft_unlink_sem_bonus.c \
-	src/ft_open_sem_bonus.c \
-	src/ft_close_sem_bonus.c
+	src/ft_close_sem_bonus.c \
+	src/ft_pthreads_routine_bonus.c
 
 OBJ=$(SRC:%.c=%.o)
 

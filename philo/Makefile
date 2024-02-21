@@ -12,7 +12,7 @@
 
 CC:=gcc
 
-CFLAGS:=-Wall -Wextra -Werror
+CFLAGS:=-Wall -Wextra -Werror -pthread
 
 SRC=src/philo.c \
 	src/ft_atoi.c \

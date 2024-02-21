@@ -12,6 +12,13 @@
 
 #include "../include/philo_bonus.h"
 
+static void	ft_clean(t_philo *philo)
+{
+	ft_close_sem(philo, 5);
+	ft_unlink_sem();
+	free(philo);
+}
+
 int	main(int argc, char **argv)
 {
 	t_philo	*philo;
@@ -26,6 +33,7 @@ int	main(int argc, char **argv)
 		free(philo);
 		return (EXIT_FAILURE);
 	}
+	ft_unlink_sem();
 	if (ft_create_sem(philo))
 	{
 		free(philo);
@@ -33,11 +41,9 @@ int	main(int argc, char **argv)
 	}
 	if (ft_start_forks(philo))
 	{
-		ft_unlink_sem(philo, 4);
-		free(philo);
+		ft_clean(philo);
 		return (ft_error("Error in ft_start_forks\n"));
 	}
-	ft_unlink_sem(philo, 4);
-	free(philo);
+	ft_clean(philo);
 	return (EXIT_SUCCESS);
 }
