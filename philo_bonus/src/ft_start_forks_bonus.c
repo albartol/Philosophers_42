@@ -17,14 +17,15 @@ static int	start(t_philo *philo)
 	philo->dies = philo->tt_die + philo->start;
 	if (pthread_create(&philo->check_thr, NULL, &ft_thread_checker, philo))
 	{
-		philo->dead++;
+		philo->dead = 1;
 		return (ft_error("Failed to create thread\n"));
 	}
 	while (philo->dead == 0)
 	{
 		if (philo->dead == 0)
 			ft_eat(philo);
-		ft_rest(philo);
+		if (philo->dead == 0)
+			ft_rest(philo);
 	}
 	pthread_join(philo->check_thr, NULL);
 	return (EXIT_SUCCESS);
@@ -77,7 +78,34 @@ static void	ft_child_start(t_philo *philo, int i)
 }
  */
 
+/* static void	*check_death(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (sem_wait(philo->sem_deaths) == 0)
+		kill(0, SIGTERM);
+	return (0);
+}
+
 static void	ft_check_num_eat(t_philo *philo)
+{
+	int		i;
+
+	philo->dies = philo->tt_die + philo->start;
+	if (pthread_create(&philo->check_thr, NULL, &check_death, philo))
+	{
+		philo->dead = 1;
+		ft_error("Failed to create thread\n");
+	}
+	i = philo->num_phi;
+	while (i--)
+		sem_wait(philo->sem_num_eat);
+	kill(0, SIGTERM);
+	pthread_join(philo->check_thr, NULL);
+} */
+
+ static void	ft_check_num_eat(t_philo *philo)
 {
 	int		i;
 
@@ -85,6 +113,7 @@ static void	ft_check_num_eat(t_philo *philo)
 	while (i--)
 		sem_wait(philo->sem_num_eat);
 	sem_post(philo->sem_deaths);
+	// kill(0, SIGTERM);
 }
 
 static int	ft_fork_fail(t_philo *philo)

@@ -19,8 +19,9 @@ static void	*check_death(void *arg)
 	philo = (t_philo *)arg;
 	if (sem_wait(philo->sem_deaths) == 0)
 	{
-		philo->dead++;
+		philo->dead = 1;
 		sem_post(philo->sem_deaths);
+		sem_post(philo->sem_num_eat);
 	}
 	return (0);
 }
@@ -32,7 +33,7 @@ void	*ft_thread_checker(void *arg)
 	philo = (t_philo *)arg;
 	if (pthread_create(&philo->check_deaths, NULL, &check_death, philo))
 	{
-		philo->dead++;
+		philo->dead = 1;
 		ft_error("Failed to create thread\n");
 		return (0);
 	}
@@ -40,6 +41,7 @@ void	*ft_thread_checker(void *arg)
 	{
 		if (philo->dies <= ft_get_time_ms() && philo->eating == 0)
 		{
+			philo->dead = 1;
 			sem_post(philo->sem_deaths);
 			ft_print_status(philo, DEAD);
 			break ;
@@ -70,7 +72,7 @@ void	*ft_thread_checker(void *arg)
 		sem_wait(philo->sem_eat);
 		if (philo->dies <= ft_get_time_ms() && philo->eating == 0)
 		{
-			philo->dead++;
+			kill(0, SIGTERM);
 			sem_post(philo->sem_deaths);
 			ft_print_status(philo, DEAD);
 			sem_post(philo->sem_eat);

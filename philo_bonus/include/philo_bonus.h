@@ -86,7 +86,7 @@ typedef struct s_philo
 	int				id;
 	int				eating;
 	int				num_eaten;
-	int				dead;
+	volatile int	dead;
 	long long		dies;
 }					t_philo;
 
