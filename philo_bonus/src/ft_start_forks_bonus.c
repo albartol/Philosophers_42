@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 01:44:49 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:43:38 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ int	ft_start_forks(t_philo *philo)
 	if (philo->start == -1)
 		return (ft_error("Failed to get start time\n"));
 	i = 0;
-	id = 1;
 	while (i++ < philo->num_phi)
 	{
 		id = fork();

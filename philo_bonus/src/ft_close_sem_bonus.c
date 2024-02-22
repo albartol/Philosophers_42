@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:08:17 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 18:27:04 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:08:25 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_close_sem(t_philo *philo, int num_to_close)
 		sem_close(philo->sem_deaths);
 	if (num_to_close >= 3)
 		sem_close(philo->sem_printf);
+	// if (num_to_close >= 4)
+	// 	sem_close(philo->sem_pairs);
 	if (num_to_close >= 4)
-		sem_close(philo->sem_pairs);
-	if (num_to_close >= 5)
 		sem_close(philo->sem_num_eat);
 }
 

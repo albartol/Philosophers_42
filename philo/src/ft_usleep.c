@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:17:16 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/15 15:39:20 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:31:13 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_usleep(unsigned int time_in_us)
 		now = ft_get_time_us();
 		if (now == -1)
 			return (EXIT_FAILURE);
-		usleep(time_in_us / 10);
+		// usleep(time_in_us / 10);
 	}
 	return (EXIT_SUCCESS);
 }

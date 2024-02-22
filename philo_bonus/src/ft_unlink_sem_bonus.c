@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 18:06:17 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 18:19:04 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:08:56 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_unlink_sem(void)
 	sem_unlink(SEM_FORK);
 	sem_unlink(SEM_DEAD);
 	sem_unlink(SEM_PRINT);
-	sem_unlink(SEM_PAIR);
+	// sem_unlink(SEM_PAIR);
 	sem_unlink(SEM_EAT);
 }
 

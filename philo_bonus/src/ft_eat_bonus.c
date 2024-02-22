@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:41:15 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 01:30:18 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:05:39 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	ft_take_forks(t_philo *philo)
 {
-	sem_wait(philo->sem_pairs);
+	// sem_wait(philo->sem_pairs);
 	sem_wait(philo->sem_forks);
 	if (philo->dead == 0)
 		ft_print_status(philo, FORK);
 	sem_wait(philo->sem_forks);
 	if (philo->dead == 0)
 		ft_print_status(philo, FORK);
-	sem_post(philo->sem_pairs);
+	// sem_post(philo->sem_pairs);
 }
 
 /* static void	ft_take_forks(t_philo *philo)

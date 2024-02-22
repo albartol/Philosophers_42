@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 23:56:17 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 00:57:04 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:09:09 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_clean(t_philo *philo)
 {
-	ft_close_sem(philo, 5);
+	ft_close_sem(philo, 4);
 	ft_unlink_sem();
 	free(philo);
 }

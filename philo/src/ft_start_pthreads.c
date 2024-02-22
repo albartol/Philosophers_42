@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/17 17:24:49 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:01:10 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	*start(void *arg)
 	if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
 	{
 		ft_print_status(phi->philo, phi->id, THINK);
-		ft_usleep(500);
+		ft_msleep(1);
 	}
 	while (phi->philo->num_dead == 0)
 	{
@@ -113,7 +113,7 @@ int	ft_start_pthreads(t_philo *ph)
 			break ;
 		}
 		i++;
-		ft_usleep(1);
+		ft_usleep(10);
 	}
 	if (ft_clean_threads(ph))
 		return (EXIT_FAILURE);

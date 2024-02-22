@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/21 01:45:49 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:14:15 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ void	*ft_thread_checker(void *arg)
 			philo->dead = 1;
 			sem_post(philo->sem_deaths);
 			ft_print_status(philo, DEAD);
-			break ;
 		}
-		if (philo->num_eaten == philo->num_to_eat)
+		else if (philo->num_eaten == philo->num_to_eat)
 		{
 			sem_post(philo->sem_num_eat);
 			philo->num_eaten++;

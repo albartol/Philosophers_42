@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/20 01:30:10 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:09:19 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_philo
 	pthread_t		check_thr;
 	pthread_t		check_deaths;
 	sem_t			*sem_forks;
-	sem_t			*sem_pairs;
+	// sem_t			*sem_pairs;
 	sem_t			*sem_deaths;
 	sem_t			*sem_printf;
 	sem_t			*sem_num_eat;
