@@ -17,7 +17,7 @@ void	ft_unlink_sem(void)
 	sem_unlink(SEM_FORK);
 	sem_unlink(SEM_DEAD);
 	sem_unlink(SEM_PRINT);
-	// sem_unlink(SEM_PAIR);
+	sem_unlink(SEM_PAIR);
 	sem_unlink(SEM_EAT);
 }
 

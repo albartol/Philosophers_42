@@ -30,12 +30,12 @@ int	ft_create_sem(t_philo *philo)
 	philo->sem_printf = sem_open(SEM_PRINT, O_CREAT, SEM_PER, 1);
 	if (SEM_FAILED == philo->sem_printf)
 		return (ft_clean_error(philo, 2, "Error create_sem(SEM_PRINT)\n"));
-	// philo->sem_pairs = sem_open(SEM_PAIR, O_CREAT, SEM_PER, philo->num_phi / 2);
-	// if (SEM_FAILED == philo->sem_pairs)
-	// 	return (ft_clean_error(philo, 3, "Error create_sem(SEM_PAIR)\n"));
+	philo->sem_pairs = sem_open(SEM_PAIR, O_CREAT, SEM_PER, philo->num_phi / 2);
+	if (SEM_FAILED == philo->sem_pairs)
+		return (ft_clean_error(philo, 3, "Error create_sem(SEM_PAIR)\n"));
 	philo->sem_num_eat = sem_open(SEM_EAT, O_CREAT, SEM_PER, 0);
 	if (SEM_FAILED == philo->sem_num_eat)
-		return (ft_clean_error(philo, 3, "Error create_sem(SEM_EAT)\n"));
+		return (ft_clean_error(philo, 4, "Error create_sem(SEM_EAT)\n"));
 	return (EXIT_SUCCESS);
 }
 

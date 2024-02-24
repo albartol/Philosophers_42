@@ -35,7 +35,7 @@
 # include <fcntl.h> /* For O_* constants */
 // for sem_open, sem_close, sem_post, sem_wait & sem_unlink
 # include <semaphore.h>
-// for macro ECHILD
+// for macro ECHILD - No child processes (POSIX.1-2001)
 # include <errno.h>
 // for kill
 # include <signal.h>
@@ -79,7 +79,7 @@ typedef struct s_philo
 	pthread_t		check_thr;
 	pthread_t		check_deaths;
 	sem_t			*sem_forks;
-	// sem_t			*sem_pairs;
+	sem_t			*sem_pairs;
 	sem_t			*sem_deaths;
 	sem_t			*sem_printf;
 	sem_t			*sem_num_eat;

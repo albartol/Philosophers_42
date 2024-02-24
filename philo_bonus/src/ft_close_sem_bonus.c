@@ -20,9 +20,9 @@ void	ft_close_sem(t_philo *philo, int num_to_close)
 		sem_close(philo->sem_deaths);
 	if (num_to_close >= 3)
 		sem_close(philo->sem_printf);
-	// if (num_to_close >= 4)
-	// 	sem_close(philo->sem_pairs);
 	if (num_to_close >= 4)
+		sem_close(philo->sem_pairs);
+	if (num_to_close >= 5)
 		sem_close(philo->sem_num_eat);
 }
 

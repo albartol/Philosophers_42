@@ -15,13 +15,17 @@
 static void	*check_death(void *arg)
 {
 	t_philo	*philo;
+	int		i;
 
 	philo = (t_philo *)arg;
+	i = 0;
 	if (sem_wait(philo->sem_deaths) == 0)
 	{
+		// kill(0, SIGTERM);
 		philo->dead = 1;
-		sem_post(philo->sem_deaths);
 		sem_post(philo->sem_num_eat);
+		while (i++ < philo->num_phi)
+			sem_post(philo->sem_deaths);
 	}
 	return (0);
 }

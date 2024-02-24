@@ -14,7 +14,7 @@
 
 static void	ft_clean(t_philo *philo)
 {
-	ft_close_sem(philo, 4);
+	ft_close_sem(philo, 5);
 	ft_unlink_sem();
 	free(philo);
 }

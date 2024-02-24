@@ -14,14 +14,14 @@
 
 static void	ft_take_forks(t_philo *philo)
 {
-	// sem_wait(philo->sem_pairs);
+	sem_wait(philo->sem_pairs);
 	sem_wait(philo->sem_forks);
 	if (philo->dead == 0)
 		ft_print_status(philo, FORK);
 	sem_wait(philo->sem_forks);
 	if (philo->dead == 0)
 		ft_print_status(philo, FORK);
-	// sem_post(philo->sem_pairs);
+	sem_post(philo->sem_pairs);
 }
 
 /* static void	ft_take_forks(t_philo *philo)
