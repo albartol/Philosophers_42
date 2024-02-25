@@ -16,7 +16,6 @@ CFLAGS:=-Wall -Wextra -Werror -pthread
 
 SRC=src/philo_bonus.c \
 	src/ft_atoi_bonus.c \
-	src/ft_calloc_bonus.c \
 	src/ft_usleep_bonus.c \
 	src/ft_get_time_bonus.c \
 	src/ft_philo_init_bonus.c \
@@ -28,7 +27,7 @@ SRC=src/philo_bonus.c \
 	src/ft_create_sem_bonus.c \
 	src/ft_unlink_sem_bonus.c \
 	src/ft_close_sem_bonus.c \
-	src/ft_pthreads_routine_bonus.c
+	src/ft_child_routine_bonus.c
 
 OBJ=$(SRC:%.c=%.o)
 

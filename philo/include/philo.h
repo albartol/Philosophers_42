@@ -71,7 +71,8 @@ struct s_philo
 	int				tt_sleep;
 	int				num_to_eat;
 	int				num_eaten;
-	volatile int	num_dead;
+	// volatile int	num_dead;
+	int				num_dead;
 	pthread_mutex_t	mem_lock;
 	pthread_mutex_t	print_lock;
 	t_phi			*philos;

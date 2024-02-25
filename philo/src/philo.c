@@ -14,6 +14,23 @@
 
 int	main(int argc, char **argv)
 {
+	t_philo	philo;
+
+	if (argc < 5 || argc > 6)
+		return (ft_error("There should be 4 or 5 arguments\n"));
+	if (ft_philo_init(&philo, argc, argv))
+		return (EXIT_FAILURE);
+	if (ft_start_pthreads(&philo))
+	{
+		ft_clean(&philo);
+		return (ft_error("Error in ft_start_pthreads\n"));
+	}
+	ft_clean(&philo);
+	return (EXIT_SUCCESS);
+}
+
+/* int	main(int argc, char **argv)
+{
 	t_philo	*philo;
 
 	if (argc < 5 || argc > 6)
@@ -35,4 +52,4 @@ int	main(int argc, char **argv)
 	ft_clean(philo);
 	free(philo);
 	return (EXIT_SUCCESS);
-}
+} */

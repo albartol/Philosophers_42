@@ -35,8 +35,6 @@
 # include <fcntl.h> /* For O_* constants */
 // for sem_open, sem_close, sem_post, sem_wait & sem_unlink
 # include <semaphore.h>
-// for macro ECHILD - No child processes (POSIX.1-2001)
-# include <errno.h>
 // for kill
 # include <signal.h>
 
@@ -86,7 +84,8 @@ typedef struct s_philo
 	int				id;
 	int				eating;
 	int				num_eaten;
-	volatile int	dead;
+	// volatile int	dead;
+	int				dead;
 	long long		dies;
 }					t_philo;
 
@@ -139,7 +138,7 @@ void				ft_unlink_sem(void);
 //	closes the semaphores depending on <num_to_close>(1-5)
 void				ft_close_sem(t_philo *philo, int num_to_close);
 
-//	routine of the thread checking in the philosopher(process) has died
-void				*ft_thread_checker(void *arg);
+//	part of the code that only child process execute
+void				ft_child_start(t_philo *philo, int i);
 
 #endif

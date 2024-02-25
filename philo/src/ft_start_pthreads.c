@@ -55,16 +55,18 @@ static void	*start(void *arg)
 
 	phi = (t_phi *)arg;
 	phi->dies = phi->philo->tt_die + phi->philo->start;
+	if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
+		ft_msleep(10);
 	if (pthread_create(&phi->check_thr, NULL, &checker, arg))
 	{
 		thread_fail(phi->philo);
 		return (0);
 	}
-	if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
-	{
-		ft_print_status(phi->philo, phi->id, THINK);
-		ft_msleep(1);
-	}
+	// if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
+	// {
+	// 	ft_print_status(phi->philo, phi->id, THINK);
+	// 	ft_msleep(1);
+	// }
 	while (phi->philo->num_dead == 0)
 	{
 		if (phi->philo->num_dead == 0)
@@ -113,7 +115,7 @@ int	ft_start_pthreads(t_philo *ph)
 			break ;
 		}
 		i++;
-		ft_usleep(10);
+		ft_usleep(5);
 	}
 	if (ft_clean_threads(ph))
 		return (EXIT_FAILURE);
