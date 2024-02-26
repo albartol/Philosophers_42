@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 17:01:10 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:09:54 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ static void	*checker(void *arg)
 	while (phi->philo->num_dead == 0)
 	{
 		pthread_mutex_lock(&phi->mem_lock);
-		if (phi->dies <= ft_get_time_ms() && phi->eating == 0)
+		// if (phi->dies <= ft_get_time_ms() && phi->eating == 0)
+		if (phi->dies <= ft_get_time_ms())
 		{
 			pthread_mutex_lock(&phi->philo->mem_lock);
-			phi->philo->num_dead++;
+			phi->philo->num_dead = 1;
 			pthread_mutex_unlock(&phi->philo->mem_lock);
 			ft_print_status(phi->philo, phi->id, DEAD);
 		}
@@ -32,7 +33,7 @@ static void	*checker(void *arg)
 			pthread_mutex_lock(&phi->philo->mem_lock);
 			phi->philo->num_eaten++;
 			if (phi->philo->num_eaten >= phi->philo->num_phi)
-				phi->philo->num_dead++;
+				phi->philo->num_dead = 1;
 			pthread_mutex_unlock(&phi->philo->mem_lock);
 			phi->num_eaten++;
 		}
@@ -44,7 +45,7 @@ static void	*checker(void *arg)
 static void	thread_fail(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mem_lock);
-	philo->num_dead++;
+	philo->num_dead = 1;
 	pthread_mutex_unlock(&philo->mem_lock);
 	ft_print_status(philo, 0, "Failed to create thread\n");
 }
@@ -62,11 +63,6 @@ static void	*start(void *arg)
 		thread_fail(phi->philo);
 		return (0);
 	}
-	// if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
-	// {
-	// 	ft_print_status(phi->philo, phi->id, THINK);
-	// 	ft_msleep(1);
-	// }
 	while (phi->philo->num_dead == 0)
 	{
 		if (phi->philo->num_dead == 0)
