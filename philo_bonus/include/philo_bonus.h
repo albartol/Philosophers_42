@@ -37,6 +37,10 @@
 # include <semaphore.h>
 // for kill
 # include <signal.h>
+// for errno & macro ECHILD
+# include <errno.h>
+/*ECHILD - For "waitpid()": The process specified by pid does not exist
+ or is not a child of the calling process.*/
 
 //	colors for printing text in the terminal
 # define RED "\033[0;31m"

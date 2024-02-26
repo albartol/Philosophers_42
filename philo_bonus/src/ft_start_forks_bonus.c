@@ -28,7 +28,7 @@ static void	ft_check_num_eat(t_philo *philo)
 static int	ft_fork_fail(t_philo *philo)
 {
 	sem_post(philo->sem_deaths);
-	while (waitpid(-1, NULL, 0) != -1)
+	while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD)
 	{
 	}
 	return (ft_error("Error in fork\n"));
@@ -55,7 +55,7 @@ int	ft_start_forks(t_philo *philo)
 		return (ft_fork_fail(philo));
 	if (philo->num_to_eat > 0)
 		ft_check_num_eat(philo);
-	while (waitpid(-1, NULL, 0) != -1)
+	while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD)
 	{
 	}
 	return (EXIT_SUCCESS);
