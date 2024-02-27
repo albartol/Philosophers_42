@@ -26,7 +26,8 @@ SRC=src/philo.c \
 	src/ft_clean.c \
 	src/ft_eat.c \
 	src/ft_rest.c \
-	src/ft_error.c
+	src/ft_error.c \
+	src/ft_pthreads_cheker.c
 
 OBJ=$(SRC:%.c=%.o)
 

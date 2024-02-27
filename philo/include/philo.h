@@ -56,6 +56,7 @@ struct s_phi
 	int				eating;
 	int				num_eaten;
 	long long		dies;
+	int				dead;
 	pthread_mutex_t	mem_lock;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*left_fork;
@@ -117,5 +118,11 @@ void				ft_rest(t_phi *phi);
 
 //	destroys the mutexes and frees the philosophers array
 void				ft_clean(t_philo *philo);
+
+//	check if there are dead philos
+void				ft_num_dead(t_phi *phi);
+
+//	routine to check if a philo dies or has finished eating
+void				*checker(void *arg);
 
 #endif

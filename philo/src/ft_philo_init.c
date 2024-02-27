@@ -64,6 +64,7 @@ static int	ft_start_philos(t_philo *philo)
 	{
 		philo->philos[i].id = i + 1;
 		philo->philos[i].eating = 0;
+		philo->philos[i].dead = 0;
 		philo->philos[i].num_eaten = 0;
 		philo->philos[i].philo = philo;
 		if (pthread_mutex_init(&philo->philos[i].mem_lock, NULL))

@@ -12,36 +12,6 @@
 
 #include "../include/philo.h"
 
-static void	*checker(void *arg)
-{
-	t_phi		*phi;
-
-	phi = (t_phi *)arg;
-	while (phi->philo->num_dead == 0)
-	{
-		pthread_mutex_lock(&phi->mem_lock);
-		// if (phi->dies <= ft_get_time_ms() && phi->eating == 0)
-		if (phi->dies <= ft_get_time_ms())
-		{
-			pthread_mutex_lock(&phi->philo->mem_lock);
-			phi->philo->num_dead = 1;
-			pthread_mutex_unlock(&phi->philo->mem_lock);
-			ft_print_status(phi->philo, phi->id, DEAD);
-		}
-		if (phi->num_eaten == phi->philo->num_to_eat)
-		{
-			pthread_mutex_lock(&phi->philo->mem_lock);
-			phi->philo->num_eaten++;
-			if (phi->philo->num_eaten >= phi->philo->num_phi)
-				phi->philo->num_dead = 1;
-			pthread_mutex_unlock(&phi->philo->mem_lock);
-			phi->num_eaten++;
-		}
-		pthread_mutex_unlock(&phi->mem_lock);
-	}
-	return (0);
-}
-
 static void	thread_fail(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mem_lock);
@@ -56,18 +26,28 @@ static void	*start(void *arg)
 
 	phi = (t_phi *)arg;
 	phi->dies = phi->philo->tt_die + phi->philo->start;
-	if (phi->id % 2 == 0 && phi->philo->num_dead == 0)
-		ft_msleep(10);
+	if (phi->id % 2 == 0)
+	{
+		// ft_num_dead(phi);
+		// if (phi->dead != 0)
+		// 	return (0);
+		// ft_print_status(phi->philo, phi->id, THINK);
+		ft_num_dead(phi);
+		if (phi->dead != 0)
+			return (0);
+		ft_msleep(phi->philo->tt_eat - phi->philo->tt_eat / 5);
+	}
 	if (pthread_create(&phi->check_thr, NULL, &checker, arg))
 	{
+		phi->dead = 1;
 		thread_fail(phi->philo);
 		return (0);
 	}
-	while (phi->philo->num_dead == 0)
+	while (phi->dead == 0)
 	{
-		if (phi->philo->num_dead == 0)
-			ft_eat(phi);
+		ft_eat(phi);
 		ft_rest(phi);
+		ft_num_dead(phi);
 	}
 	pthread_join(phi->check_thr, NULL);
 	return (0);
@@ -79,8 +59,7 @@ static int	ft_clean_threads(t_philo *philo)
 
 	if (philo->num_phi == 1)
 	{
-		if (philo->num_dead == 0)
-			ft_msleep(philo->tt_die + 2);
+		ft_msleep(philo->tt_die + 10);
 		if (pthread_detach(philo->philos[0].thr))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);

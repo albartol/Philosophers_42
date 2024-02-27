@@ -14,10 +14,14 @@
 
 void	ft_rest(t_phi *phi)
 {
-	if (phi->philo->num_dead == 0)
-		ft_print_status(phi->philo, phi->id, SLEEP);
-	if (phi->philo->num_dead == 0)
+	ft_num_dead(phi);
+	if (phi->dead != 0)
+		return ;
+	ft_print_status(phi->philo, phi->id, SLEEP);
+	ft_num_dead(phi);
+	if (phi->dead == 0)
 		ft_msleep(phi->philo->tt_sleep);
-	if (phi->philo->num_dead == 0)
+	ft_num_dead(phi);
+	if (phi->dead == 0)
 		ft_print_status(phi->philo, phi->id, THINK);
 }
