@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/26 18:10:38 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:52:31 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,21 @@ static int	start(t_philo *philo)
 	return (EXIT_SUCCESS);
 }
 
+static void	ft_one_philo(t_philo *philo)
+{
+	ft_print_status(philo, FORK);
+	ft_msleep(philo->tt_die);
+	ft_print_status(philo, DEAD);
+	exit(EXIT_SUCCESS);
+}
+
 void	ft_child_start(t_philo *philo, int i)
 {
 	int		status;
 
 	philo->id = i;
+	if (philo->num_phi == 1)
+		ft_one_philo(philo);
 	status = start(philo);
 	ft_close_sem(philo, 5);
 	if (status)

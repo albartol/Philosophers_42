@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 16:17:16 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 16:31:13 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:09:09 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_usleep(unsigned int time_in_us)
 	if (now == -1)
 		return (EXIT_FAILURE);
 	target = now + time_in_us;
+	usleep(time_in_us / 2);
 	while (now < target)
 	{
 		now = ft_get_time_us();
@@ -29,25 +30,6 @@ int	ft_usleep(unsigned int time_in_us)
 	}
 	return (EXIT_SUCCESS);
 }
-
-/* int	ft_usleep(unsigned int time_in_us)
-{
-	long long	now;
-	long long	target;
-
-	now = ft_get_time_us();
-	if (now == -1)
-		return (EXIT_FAILURE);
-	target = now + time_in_us;
-	while (now < target)
-	{
-		now = ft_get_time_us();
-		if (now == -1)
-			return (EXIT_FAILURE);
-		usleep(time_in_us / 10);
-	}
-	return (EXIT_SUCCESS);
-} */
 
 int	ft_msleep(unsigned int time_in_ms)
 {
@@ -58,12 +40,13 @@ int	ft_msleep(unsigned int time_in_ms)
 	if (now == -1)
 		return (EXIT_FAILURE);
 	target = now + time_in_ms;
+	usleep(time_in_ms * 100);
 	while (now < target)
 	{
+		usleep(time_in_ms);
 		now = ft_get_time_ms();
 		if (now == -1)
 			return (EXIT_FAILURE);
-		usleep(time_in_ms);
 	}
 	return (EXIT_SUCCESS);
 }
