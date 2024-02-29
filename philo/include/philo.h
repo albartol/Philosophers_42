@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 17:59:02 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:01:42 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,11 @@ long long			ft_get_time_ms(void);
 //	gets time in microseconds
 long long			ft_get_time_us(void);
 
-//	prints the status depending on the phi_id and string sent
-void				ft_print_status(t_philo *philo, int phi_id, char *str);
+//	prints the status
+// void				ft_print_status(t_philo *philo, int phi_id, char *str);
 //int					ft_print_status(t_philo *philo, int phi, char *str);
+void				ft_print_status(t_phi *phi, char *str);
+void				ft_print_death(t_phi *phi, char *str);
 
 //	checks the arguments and initializes the values in t_philo
 int					ft_philo_init(t_philo *philo, int argc, char **argv);

@@ -6,13 +6,12 @@
 #    By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 14:52:30 by albartol          #+#    #+#              #
-#    Updated: 2024/02/26 18:08:03 by albartol         ###   ########.fr        #
+#    Updated: 2024/02/29 14:25:08 by albartol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 
-# CFLAGS:=-Wall -Wextra -Werror -pthread -fsanitize=thread
 CFLAGS:=-Wall -Wextra -Werror -pthread
 
 SRC=src/philo.c \

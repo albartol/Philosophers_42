@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/28 17:16:05 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:04:14 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	thread_fail(t_philo *philo)
 	pthread_mutex_lock(&philo->mem_lock);
 	philo->num_dead = 1;
 	pthread_mutex_unlock(&philo->mem_lock);
-	ft_print_status(philo, 0, "Failed to create thread\n");
+	ft_error("Failed to create thread\n");
 }
 
 static void	*start(void *arg)
@@ -77,10 +77,10 @@ static int	ft_clean_threads(t_philo *philo)
 static int	ft_one_philo(t_phi *phi)
 {
 	pthread_mutex_lock(&phi->fork);
-	ft_print_status(phi->philo, phi->id, FORK);
+	ft_print_status(phi, FORK);
 	pthread_mutex_unlock(&phi->fork);
 	ft_msleep(phi->philo->tt_die);
-	ft_print_status(phi->philo, phi->id, DEAD);
+	ft_print_death(phi, DEAD);
 	return (EXIT_SUCCESS);
 }
 

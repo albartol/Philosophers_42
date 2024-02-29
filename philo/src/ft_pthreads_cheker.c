@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:09:20 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/27 17:11:54 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:02:25 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_check_death(t_phi *phi)
 		pthread_mutex_lock(&phi->philo->mem_lock);
 		phi->philo->num_dead = 1;
 		pthread_mutex_unlock(&phi->philo->mem_lock);
-		ft_print_status(phi->philo, phi->id, DEAD);
+		ft_print_death(phi, DEAD);
 	}
 }
 

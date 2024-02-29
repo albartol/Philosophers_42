@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 17:09:19 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:12:12 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ long long			ft_get_time_ms(void);
 long long			ft_get_time_us(void);
 
 //	prints the status depending on the string sent
+// void				ft_print_death(t_philo *philo, char *str);
 void				ft_print_status(t_philo *philo, char *str);
 //int					ft_print_status(t_philo *philo, int phi, char *str);
 

@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:41:15 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/26 18:09:45 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:04:33 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	ft_take_forks(t_phi *phi)
 	pthread_mutex_lock(&phi->fork);
 	ft_num_dead(phi);
 	if (phi->dead == 0)
-		ft_print_status(phi->philo, phi->id, FORK);
+		ft_print_status(phi, FORK);
 	pthread_mutex_lock(phi->left_fork);
 	ft_num_dead(phi);
 	if (phi->dead == 0)
-		ft_print_status(phi->philo, phi->id, FORK);
+		ft_print_status(phi, FORK);
 }
 
 static void	ft_leave_forks(t_phi *phi)
@@ -44,7 +44,7 @@ void	ft_eat(t_phi *phi)
 	pthread_mutex_unlock(&phi->mem_lock);
 	ft_num_dead(phi);
 	if (phi->dead == 0)
-		ft_print_status(phi->philo, phi->id, EAT);
+		ft_print_status(phi, EAT);
 	ft_num_dead(phi);
 	if (phi->dead == 0)
 		ft_msleep(phi->philo->tt_eat);

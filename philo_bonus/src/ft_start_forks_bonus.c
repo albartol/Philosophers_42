@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 16:43:38 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:17:11 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_check_num_eat(t_philo *philo)
 	i = philo->num_phi;
 	while (i--)
 		sem_wait(philo->sem_num_eat);
+	kill(0, SIGTERM);
 	i = 0;
 	while (i++ < philo->num_phi)
 		sem_post(philo->sem_deaths);
@@ -70,7 +71,8 @@ int	ft_start_forks(t_philo *philo)
 	i = philo->num_phi;
 	while (i--)
 		sem_wait(philo->sem_num_eat);
-	sem_post(philo->sem_deaths);
+	// sem_post(philo->sem_deaths);
+	kill(0, SIGKILL);
 	return (0);
 }
 
@@ -87,8 +89,9 @@ static void	ft_terminate(t_philo *philo)
 	sem_wait(philo->sem_deaths);
 	if (philo->num_to_eat > 0)
 		pthread_join(philo->check_thr, NULL);
-	ft_close_sem(philo, 5);
-	kill(0, SIGTERM);
+	// ft_close_sem(philo, 5);
+	// kill(0, SIGTERM);
+	kill(0, SIGKILL);
 }
 
 static int	ft_fork_fail(t_philo *philo)

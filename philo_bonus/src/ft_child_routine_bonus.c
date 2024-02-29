@@ -6,13 +6,13 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/28 13:52:31 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:15:18 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-static void	*check_death(void *arg)
+/* static void	*check_death(void *arg)
 {
 	t_philo	*philo;
 	int		i;
@@ -27,27 +27,30 @@ static void	*check_death(void *arg)
 			sem_post(philo->sem_deaths);
 	}
 	return (0);
-}
+} */
 
 static void	*ft_thread_checker(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (pthread_create(&philo->check_deaths, NULL, &check_death, philo))
-	{
-		philo->dead = 1;
-		ft_error("Failed to create thread\n");
-		return (0);
-	}
+	// if (pthread_create(&philo->check_deaths, NULL, &check_death, philo))
+	// {
+	// 	philo->dead = 1;
+	// 	ft_error("Failed to create thread\n");
+	// 	return (0);
+	// }
 	while (philo->dead == 0)
 	{
 		// if (philo->dies <= ft_get_time_ms() && philo->eating == 0)
 		if (philo->dies <= ft_get_time_ms())
 		{
 			philo->dead = 1;
-			sem_post(philo->sem_deaths);
 			ft_print_status(philo, DEAD);
+			// ft_print_death(philo, DEAD);
+			// kill(0, SIGKILL);
+			kill(0, SIGTERM);
+			sem_post(philo->sem_deaths);
 		}
 		else if (philo->num_eaten == philo->num_to_eat)
 		{
@@ -55,7 +58,7 @@ static void	*ft_thread_checker(void *arg)
 			philo->num_eaten++;
 		}
 	}
-	pthread_join(philo->check_deaths, NULL);
+	// pthread_join(philo->check_deaths, NULL);
 	return (0);
 }
 

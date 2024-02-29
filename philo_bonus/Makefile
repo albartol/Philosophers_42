@@ -6,13 +6,12 @@
 #    By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 14:52:30 by albartol          #+#    #+#              #
-#    Updated: 2024/02/26 18:24:08 by albartol         ###   ########.fr        #
+#    Updated: 2024/02/29 13:46:06 by albartol         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 
-# CFLAGS:=-Wall -Wextra -Werror -pthread -fsanitize=thread
 CFLAGS:=-Wall -Wextra -Werror -pthread
 
 SRC=src/philo_bonus.c \
