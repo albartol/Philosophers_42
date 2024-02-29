@@ -6,12 +6,11 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 14:17:11 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:42:59 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
-
 
 static void	ft_check_num_eat(t_philo *philo)
 {
@@ -21,6 +20,48 @@ static void	ft_check_num_eat(t_philo *philo)
 	while (i--)
 		sem_wait(philo->sem_num_eat);
 	kill(0, SIGTERM);
+}
+
+static void	ft_fork_fail(void)
+{
+	ft_error("Error in fork\n");
+	kill(0, SIGTERM);
+}
+
+int	ft_start_forks(t_philo *philo)
+{
+	int	i;
+	int	id;
+
+	philo->start = ft_get_time_ms();
+	if (philo->start == -1)
+		return (ft_error("Failed to get start time\n"));
+	i = 0;
+	while (i++ < philo->num_phi)
+	{
+		id = fork();
+		if (id == 0 || id == -1)
+			break ;
+	}
+	if (id == 0)
+		ft_child_start(philo, i);
+	if (id == -1)
+		ft_fork_fail();
+	if (philo->num_to_eat > 0)
+		ft_check_num_eat(philo);
+	while (waitpid(-1, NULL, 0) != -1 || errno != ECHILD)
+	{
+	}
+	return (EXIT_SUCCESS);
+}
+
+/* static void	ft_check_num_eat(t_philo *philo)
+{
+	int		i;
+
+	i = philo->num_phi;
+	while (i--)
+		sem_wait(philo->sem_num_eat);
 	i = 0;
 	while (i++ < philo->num_phi)
 		sem_post(philo->sem_deaths);
@@ -60,8 +101,7 @@ int	ft_start_forks(t_philo *philo)
 	{
 	}
 	return (EXIT_SUCCESS);
-}
-
+} */
 /* static void	*check_eaten(void *arg)
 {
 	t_philo	*philo;

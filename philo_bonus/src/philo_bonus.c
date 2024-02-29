@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 23:56:17 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/22 17:09:09 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:42:41 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_clean(t_philo *philo)
 {
 	ft_close_sem(philo, 5);
 	ft_unlink_sem();
-	// free(philo);
 }
 
 int	main(int argc, char **argv)
@@ -38,7 +37,6 @@ int	main(int argc, char **argv)
 	ft_clean(&philo);
 	return (EXIT_SUCCESS);
 }
-
 
 /* int	main(int argc, char **argv)
 {

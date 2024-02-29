@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 14:12:12 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:20:54 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_philo
 	int				id;
 	int				eating;
 	int				num_eaten;
-	// volatile int	dead;
 	int				dead;
 	long long		dies;
 }					t_philo;
@@ -115,9 +114,7 @@ long long			ft_get_time_ms(void);
 long long			ft_get_time_us(void);
 
 //	prints the status depending on the string sent
-// void				ft_print_death(t_philo *philo, char *str);
 void				ft_print_status(t_philo *philo, char *str);
-//int					ft_print_status(t_philo *philo, int phi, char *str);
 
 //	checks the arguments and initializes the values in t_philo
 int					ft_philo_init(t_philo *philo, int argc, char **argv);
@@ -131,12 +128,9 @@ void				ft_eat(t_philo *philo);
 //	the resting action for a philosopher to do after eating: sleaping & tinking
 void				ft_rest(t_philo *philo);
 
-//	OLD: creates, opens and closes the semaphores in the main process
-//	NEW: creates and opens the semaphores in the main process
+//	creates and opens the semaphores in the main process
 int					ft_create_sem(t_philo *philo);
 
-//	unlinks the semaphores depending on <num_to_unlink>(1-5) in the main process
-// void				ft_unlink_sem(t_philo *philo, int num_to_unlink);
 //	unlinks the semaphores
 void				ft_unlink_sem(void);
 

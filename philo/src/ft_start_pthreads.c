@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 13:04:14 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:16:44 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ static void	*start(void *arg)
 	phi->dies = phi->philo->tt_die + phi->philo->start;
 	if (phi->id % 2 == 0)
 	{
-		// ft_num_dead(phi);
-		// if (phi->dead != 0)
-		// 	return (0);
-		// ft_print_status(phi->philo, phi->id, THINK);
 		ft_num_dead(phi);
 		if (phi->dead != 0)
 			return (0);

@@ -6,11 +6,21 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:35:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 14:11:53 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:23:33 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
+
+void	ft_print_status(t_philo *philo, char *str)
+{
+	long long	ms;
+
+	sem_wait(philo->sem_printf);
+	ms = ft_get_time_ms() - philo->start;
+	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, philo->id, str);
+	sem_post(philo->sem_printf);
+}
 
 /* void	ft_print_status(t_philo *philo, char *str)
 {
@@ -38,17 +48,6 @@ void	ft_print_death(t_philo *philo, char *str)
 	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, philo->id, str);
 	// sem_post(philo->sem_printf);
 } */
-
-void	ft_print_status(t_philo *philo, char *str)
-{
-	long long	ms;
-
-	sem_wait(philo->sem_printf);
-	ms = ft_get_time_ms() - philo->start;
-	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, philo->id, str);
-	sem_post(philo->sem_printf);
-}
-
 /* int	ft_print_status(t_philo *philo, int phi, char *str)
 {
 	long long	ms;

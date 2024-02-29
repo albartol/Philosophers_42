@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:56:12 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 13:01:42 by albartol         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:16:04 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ struct s_philo
 	int				tt_sleep;
 	int				num_to_eat;
 	int				num_eaten;
-	// volatile int	num_dead;
 	int				num_dead;
 	pthread_mutex_t	mem_lock;
 	pthread_mutex_t	print_lock;
@@ -101,8 +100,6 @@ long long			ft_get_time_ms(void);
 long long			ft_get_time_us(void);
 
 //	prints the status
-// void				ft_print_status(t_philo *philo, int phi_id, char *str);
-//int					ft_print_status(t_philo *philo, int phi, char *str);
 void				ft_print_status(t_phi *phi, char *str);
 void				ft_print_death(t_phi *phi, char *str);
 
