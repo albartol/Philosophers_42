@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:35:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 17:33:32 by albartol         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:59:09 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ void	ft_print_death(t_phi *phi, char *str)
 {
 	long long	ms;
 
+	pthread_mutex_lock(&phi->philo->print_lock);
 	ms = ft_get_time_ms() - phi->philo->start;
 	printf(ORANGE "[%lld]" WHITE " %d" RESET " %s\n", ms, phi->id, str);
+	pthread_mutex_unlock(&phi->philo->print_lock);
 }
 
 /* void	ft_print_status(t_philo *philo, int phi_id, char *str)

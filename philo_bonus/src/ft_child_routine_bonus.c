@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:22:40 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 18:22:38 by albartol         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:24:43 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,30 @@ static int	start(t_philo *philo)
 	pthread_join(philo->check_thr, NULL);
 	return (EXIT_SUCCESS);
 }
+
+/* static int	start(t_philo *philo)
+{
+	philo->dies = philo->tt_die + philo->start;
+	if (pthread_create(&philo->check_thr, NULL, &ft_thread_checker, philo))
+		return (ft_error("Failed to create thread\n"));
+	while (1)
+	{
+		if (philo->dies <= ft_get_time_ms())
+		{
+			ft_print_status(philo, DEAD);
+			kill(0, SIGKILL);
+		}
+		ft_eat(philo);
+		if (philo->num_eaten == philo->num_to_eat)
+		{
+			sem_post(philo->sem_num_eat);
+			philo->num_eaten++;
+		}
+		ft_rest(philo);
+	}
+	pthread_join(philo->check_thr, NULL);
+	return (EXIT_SUCCESS);
+} */
 
 static void	ft_one_philo(t_philo *philo)
 {

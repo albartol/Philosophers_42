@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 15:41:15 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 17:40:00 by albartol         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:23:24 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@ void	ft_rest(t_philo *philo)
 	ft_msleep(philo->tt_sleep);
 	ft_print_status(philo, THINK);
 }
+
+/* void	ft_rest(t_philo *philo)
+{
+	if (philo->dies <= ft_get_time_ms() + philo->tt_sleep)
+	{
+		ft_print_status(philo, SLEEP);
+		ft_msleep(philo->dies - ft_get_time_ms());
+		ft_print_status(philo, DEAD);
+		kill(0, SIGKILL);
+	}
+	ft_print_status(philo, SLEEP);
+	ft_msleep(philo->tt_sleep);
+	if (philo->dies <= ft_get_time_ms())
+	{
+		ft_print_status(philo, DEAD);
+		kill(0, SIGKILL);
+	}
+	ft_print_status(philo, THINK);
+} */
 
 /* void	ft_rest(t_philo *philo)
 {

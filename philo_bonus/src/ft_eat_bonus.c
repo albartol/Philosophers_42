@@ -6,7 +6,7 @@
 /*   By: albartol <albartol@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:41:15 by albartol          #+#    #+#             */
-/*   Updated: 2024/02/29 18:22:32 by albartol         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:24:11 by albartol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ void	ft_eat(t_philo *philo)
 	ft_msleep(philo->tt_eat);
 	ft_leave_forks(philo);
 }
+
+/* void	ft_eat(t_philo *philo)
+{
+	if (philo->dies <= ft_get_time_ms())
+	{
+		ft_print_status(philo, DEAD);
+		kill(0, SIGKILL);
+	}
+	ft_take_forks(philo);
+	philo->dies = philo->tt_die + ft_get_time_ms();
+	ft_print_status(philo, EAT);
+	if (philo->dies <= ft_get_time_ms() + philo->tt_eat)
+	{
+		ft_msleep(philo->dies - ft_get_time_ms());
+		ft_print_status(philo, DEAD);
+		kill(0, SIGKILL);
+	}
+	ft_msleep(philo->tt_eat);
+	ft_leave_forks(philo);
+} */
 
 /* static void	ft_take_forks(t_philo *philo)
 {
